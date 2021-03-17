@@ -1,0 +1,22 @@
+name = input("Enter file:")
+if len(name) < 1 : name = "mbox-short.txt"
+handle = open(name)
+d=dict()
+for line in handle:
+    if not line.startswith("From "):
+        continue
+#Gets rid of lines without From:
+    else:
+        pieces=line.split()
+        pieces=pieces[1]
+        d[pieces]=d.get(pieces,0)+1
+#splits line and grabs just hours and counts them
+lst=list()
+for count, value in d.items():
+    lst.append((value, count))
+#flip the value and count
+lst.sort(reverse=True)
+#sort into highest value first
+for count, value in lst[:1]:
+    print(value, count)
+#print the first value in list, which would be the highest
